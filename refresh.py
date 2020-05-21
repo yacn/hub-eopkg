@@ -38,9 +38,9 @@ if not new_tag:
     print("could not determine latest version")
     sys.exit(1)
 
-#if current_tag == new_tag:
-#    print(f"Latest version is still {current_tag}. Up to date, nothing to do")
-#    sys.exit(0)
+if current_tag == new_tag:
+    print(f"Latest version is still {current_tag}. Up to date, nothing to do")
+    sys.exit(0)
 
 new_release = data['release'] + 1
 print(" ".join([
