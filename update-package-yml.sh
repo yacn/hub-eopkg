@@ -6,16 +6,16 @@
 # so instead we create more problems by updating package.yml with regex
 # however we _can_ use python go get the values to update
 
-function usage() { echo "$0 <version> <checksum> <release> < package.yml > whatever.yml"; exit; }
+function usage() { echo "$0 <tag> <release> < package.yml > whatever.yml"; exit; }
 
-if [[ $# != 3 ]]; then
+if [[ $# != 2 ]]; then
 	usage
 fi
 
-version="$1"
-checksum="$2"
-release="$3"
+tag="$1"
+release="$2"
 
-sed "s/version: [0-9.]\+$/version: $version/" < /dev/stdin \
-| sed "s/tgz: [0-9a-z]\+$/tgz: $checksum/" \
-| sed "s/release: [0-9]\+$/release: $release/"
+# save whitespace, remove leading 'v' from tag
+sed -r "s/(version\s+): [0-9.]+$/\1: ${tag#v}/" < /dev/stdin \
+| sed -r "s/hub.git : v[0-9.]+$/hub.git : $tag/" \
+| sed -r "s/(release\s+): [0-9]+$/\1: $release/"
