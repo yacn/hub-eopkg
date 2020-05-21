@@ -17,5 +17,5 @@ checksum="$2"
 release="$3"
 
 sed "s/version: [0-9.]\+$/version: $version/" < /dev/stdin \
-| sed "s/- \(.\+\)\.tgz: [0-9a-z]\+$/\1.tgz: $checksum/" \
+| sed "s/tgz: [0-9a-z]\+$/tgz: $checksum/" \
 | sed "s/release: [0-9]\+$/release: $release/"
